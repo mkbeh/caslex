@@ -1,6 +1,6 @@
 [package]
 name = "caslex-http"
-version = "0.1.0"
+version = "0.1.1"
 categories = ["asynchronous", "network-programming", "web-programming::http-server"]
 description = "Tools for creating web services"
 edition = "2024"
