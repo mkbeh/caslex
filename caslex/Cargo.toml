@@ -1,0 +1,12 @@
+[package]
+name = "caslex"
+version = "0.1.0"
+edition = "2024"
+rust-version.workspace = true
+homepage = "https://github.com/mkbeh/caslex"
+license = "MIT"
+keywords = ["caslex"]
+readme = "README.md"
+repository = "https://github.com/mkbeh/caslex"
+
+[dependencies]
