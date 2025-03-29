@@ -23,6 +23,17 @@ More information about this crate can be found in the [crate documentation](http
 use caslex_http::server::{Config, Server};
 use utoipa_axum::{router::OpenApiRouter, routes};
 
+#[utoipa::path(
+    get,
+    path = "/",
+    responses(
+        (status = 200, description = "Ok")
+    )
+)]
+async fn handler() -> &'static str {
+    "Hello, World!"
+}
+
 #[tokio::main]
 async fn main() {
     let config = Config::parse();
@@ -35,17 +46,6 @@ async fn main() {
             std::process::exit(1);
         }
     }
-}
-
-#[utoipa::path(
-    get,
-    path = "/",
-    responses(
-        (status = 200, description = "Ok")
-    )
-)]
-async fn handler() -> &'static str {
-    "Hello, World!"
 }
 ```
 
