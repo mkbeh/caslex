@@ -7,7 +7,7 @@ rust-version.workspace = true
 
 [dependencies]
 caslex-http = { path = "../../caslex-http" , features = ["auth"]}
-caslex-extra = {path = "../../caslex-extra"}
+caslex = {path = "../../caslex"}
 tokio = { version = "1.44.1", features = ["full"] }
 axum = "0.8.3"
 utoipa = "5.3.1"

@@ -8,7 +8,7 @@
 
 use std::env;
 
-use caslex_extra::observability::{setup_opentelemetry, unset_opentelemetry};
+use caslex::observability::{setup_opentelemetry, unset_opentelemetry};
 use caslex_http::server::{Config, Server};
 use utoipa_axum::{router::OpenApiRouter, routes};
 

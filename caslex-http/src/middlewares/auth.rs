@@ -5,7 +5,7 @@ use axum_extra::{
     TypedHeader,
     headers::{Authorization, authorization::Bearer},
 };
-use caslex_extra::security::jwt;
+use caslex::security::jwt;
 use http::{StatusCode, request::Parts};
 use jsonwebtoken::errors::ErrorKind;
 use serde::{Deserialize, Serialize};

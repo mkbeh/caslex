@@ -8,7 +8,7 @@
 
 use std::env;
 
-use caslex_extra::{cleanup_resources, setup_application};
+use caslex::{cleanup_resources, setup_application};
 use caslex_http::server::{Config, Server};
 use utoipa_axum::{router::OpenApiRouter, routes};
 

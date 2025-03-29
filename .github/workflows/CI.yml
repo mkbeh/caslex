@@ -37,8 +37,6 @@ jobs:
         run: cargo doc --package caslex --all-features --no-deps
       - name: cargo doc -p caslex-http
         run: cargo doc --package caslex-http --all-features --no-deps
-      - name: cargo doc -p caslex-extra
-        run: cargo doc --package caslex-extra --all-features --no-deps
     env:
       RUSTDOCFLAGS: "-D rustdoc::all -A rustdoc::private-doc-tests"
 

@@ -9,7 +9,7 @@
 use std::{env, sync::OnceLock};
 
 use async_trait::async_trait;
-use caslex_extra::{cleanup_resources, setup_application};
+use caslex::{cleanup_resources, setup_application};
 use caslex_http::server::{Config, Process, Server};
 use tokio_util::sync::CancellationToken;
 

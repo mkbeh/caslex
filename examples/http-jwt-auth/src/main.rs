@@ -9,7 +9,7 @@
 use std::env;
 
 use axum::Json;
-use caslex_extra::{
+use caslex::{
     observability::{setup_opentelemetry, unset_opentelemetry},
     security::jwt,
 };

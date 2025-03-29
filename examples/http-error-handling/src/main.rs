@@ -9,7 +9,7 @@
 use std::{env, error::Error as StdError, fmt, fmt::Display};
 
 use axum::http::StatusCode;
-use caslex_extra::observability::{setup_opentelemetry, unset_opentelemetry};
+use caslex::observability::{setup_opentelemetry, unset_opentelemetry};
 use caslex_http::{
     errors::{AppError, DefaultError},
     server::{Config, Server},

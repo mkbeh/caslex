@@ -284,11 +284,7 @@ checksum = "d71b6127be86fdcfddb610f7182ac57211d4b18a3e9c82eb2d17662f2227ad6a"
 
 [[package]]
 name = "caslex"
-version = "0.1.1"
-
-[[package]]
-name = "caslex-extra"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "anyhow",
  "clap",
@@ -315,7 +311,7 @@ dependencies = [
  "axum-core",
  "axum-extra",
  "bytes",
- "caslex-extra",
+ "caslex",
  "clap",
  "http",
  "http-body-util",
@@ -561,7 +557,7 @@ name = "example-http-error-handling"
 version = "0.1.0"
 dependencies = [
  "axum",
- "caslex-extra",
+ "caslex",
  "caslex-http",
  "tokio",
  "utoipa",
@@ -584,7 +580,7 @@ name = "example-http-jwt-auth"
 version = "0.1.0"
 dependencies = [
  "axum",
- "caslex-extra",
+ "caslex",
  "caslex-http",
  "serde",
  "tokio",
@@ -597,7 +593,7 @@ name = "example-http-observability"
 version = "0.1.0"
 dependencies = [
  "axum",
- "caslex-extra",
+ "caslex",
  "caslex-http",
  "tokio",
  "utoipa",
@@ -610,7 +606,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
- "caslex-extra",
+ "caslex",
  "caslex-http",
  "tokio",
  "tokio-util",
@@ -621,7 +617,7 @@ name = "example-postgres-pool"
 version = "0.1.0"
 dependencies = [
  "axum",
- "caslex-extra",
+ "caslex",
  "caslex-http",
  "deadpool-postgres",
  "tokio",
@@ -634,7 +630,7 @@ name = "example-setup-defaults"
 version = "0.1.0"
 dependencies = [
  "axum",
- "caslex-extra",
+ "caslex",
  "caslex-http",
  "tokio",
  "utoipa",

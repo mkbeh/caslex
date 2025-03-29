@@ -12,7 +12,7 @@ readme = "README.md"
 repository = "https://github.com/mkbeh/caslex"
 
 [features]
-auth = ["dep:jsonwebtoken", "dep:caslex-extra"]
+auth = ["dep:jsonwebtoken", "dep:caslex"]
 
 [dependencies]
 serde = { version = "1.0.219", features = ["derive"] }
@@ -49,7 +49,7 @@ tracing-opentelemetry = { version = "0.30.0" }
 prometheus = { version = "0.14.0", default-features = false }
 
 # optional dependencies
-caslex-extra = { path = "../caslex-extra", version = "0.1.0", features = ["jwt"], optional = true }
+caslex = { path = "../caslex", version = "0.1.0", features = ["jwt"], optional = true }
 jsonwebtoken = { version = "9.3.1", optional = true }
 
 [lints]
