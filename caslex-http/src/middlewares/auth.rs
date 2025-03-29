@@ -82,13 +82,13 @@ impl AppError for AuthError {
     fn details(&self) -> String {
         AUTH_ERRORS
             .get(self)
-            .map_or("unknown error".to_string(), |e| e.details.to_string())
+            .map_or("unknown error".to_owned(), |e| e.details.to_owned())
     }
 
     fn kind(&self) -> String {
         AUTH_ERRORS
             .get(self)
-            .map_or("unknown_error".to_string(), |e| e.kind.to_string())
+            .map_or("unknown_error".to_owned(), |e| e.kind.to_owned())
     }
 }
 
@@ -105,8 +105,8 @@ static AUTH_ERRORS: LazyLock<HashMap<AuthError, FullError>> = LazyLock::new(|| {
         AuthError::WrongCredentials,
         FullError {
             code: StatusCode::UNAUTHORIZED,
-            kind: "auth_wrong_credentials".to_string(),
-            details: "wrong credentials".to_string(),
+            kind: "auth_wrong_credentials".to_owned(),
+            details: "wrong credentials".to_owned(),
         },
     );
 
@@ -114,8 +114,8 @@ static AUTH_ERRORS: LazyLock<HashMap<AuthError, FullError>> = LazyLock::new(|| {
         AuthError::MissingCredentials,
         FullError {
             code: StatusCode::BAD_REQUEST,
-            kind: "auth_missing_credentials".to_string(),
-            details: "missing credentials".to_string(),
+            kind: "auth_missing_credentials".to_owned(),
+            details: "missing credentials".to_owned(),
         },
     );
 
@@ -123,8 +123,8 @@ static AUTH_ERRORS: LazyLock<HashMap<AuthError, FullError>> = LazyLock::new(|| {
         AuthError::TokenCreation,
         FullError {
             code: StatusCode::INTERNAL_SERVER_ERROR,
-            kind: "auth_token_creation".to_string(),
-            details: "token creation".to_string(),
+            kind: "auth_token_creation".to_owned(),
+            details: "token creation".to_owned(),
         },
     );
 
@@ -132,8 +132,8 @@ static AUTH_ERRORS: LazyLock<HashMap<AuthError, FullError>> = LazyLock::new(|| {
         AuthError::InvalidToken,
         FullError {
             code: StatusCode::BAD_REQUEST,
-            kind: "auth_invalid_token".to_string(),
-            details: "invalid token".to_string(),
+            kind: "auth_invalid_token".to_owned(),
+            details: "invalid token".to_owned(),
         },
     );
 
@@ -141,8 +141,8 @@ static AUTH_ERRORS: LazyLock<HashMap<AuthError, FullError>> = LazyLock::new(|| {
         AuthError::InvalidSignature,
         FullError {
             code: StatusCode::UNAUTHORIZED,
-            kind: "auth_invalid_signature".to_string(),
-            details: "invalid signature".to_string(),
+            kind: "auth_invalid_signature".to_owned(),
+            details: "invalid signature".to_owned(),
         },
     );
 
@@ -150,8 +150,8 @@ static AUTH_ERRORS: LazyLock<HashMap<AuthError, FullError>> = LazyLock::new(|| {
         AuthError::InvalidClaims,
         FullError {
             code: StatusCode::UNAUTHORIZED,
-            kind: "auth_invalid_claims".to_string(),
-            details: "invalid claims".to_string(),
+            kind: "auth_invalid_claims".to_owned(),
+            details: "invalid claims".to_owned(),
         },
     );
 
@@ -159,8 +159,8 @@ static AUTH_ERRORS: LazyLock<HashMap<AuthError, FullError>> = LazyLock::new(|| {
         AuthError::ExpiredSignature,
         FullError {
             code: StatusCode::UNAUTHORIZED,
-            kind: "auth_expired_signature".to_string(),
-            details: "expired signature".to_string(),
+            kind: "auth_expired_signature".to_owned(),
+            details: "expired signature".to_owned(),
         },
     );
 

@@ -4,6 +4,8 @@
 //! LOG_LEVEL=trace TRACE_LOG_LEVEL=trace cargo run -p example-postgres-pool
 //! ```
 
+#![allow(clippy::exit)]
+
 use std::env;
 
 use axum::{extract::State, http::StatusCode};
@@ -34,7 +36,7 @@ async fn main() {
     match result {
         Ok(_) => std::process::exit(0),
         Err(e) => {
-            println!("failed to start server: {}", e);
+            println!("failed to start server: {e}");
             std::process::exit(1);
         }
     }

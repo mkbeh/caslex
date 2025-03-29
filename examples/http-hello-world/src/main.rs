@@ -4,6 +4,8 @@
 //! cargo run -p example-http-hello-world
 //! ```
 
+#![allow(clippy::exit)]
+
 use caslex_http::server::{Config, Server};
 use utoipa_axum::{router::OpenApiRouter, routes};
 

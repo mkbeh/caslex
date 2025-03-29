@@ -4,6 +4,8 @@
 //! LOG_LEVEL=trace TRACE_LOG_LEVEL=trace cargo run -p example-http-processes
 //! ```
 
+#![allow(clippy::exit)]
+
 use std::{env, sync::OnceLock};
 
 use async_trait::async_trait;
@@ -33,7 +35,7 @@ async fn main() {
     match result {
         Ok(_) => std::process::exit(0),
         Err(e) => {
-            println!("failed to start server: {}", e);
+            println!("failed to start server: {e}");
             std::process::exit(1);
         }
     }
@@ -47,7 +49,7 @@ struct DummyProcess {
 impl DummyProcess {
     fn new() -> &'static Self {
         static INSTANCE: OnceLock<DummyProcess> = OnceLock::new();
-        INSTANCE.get_or_init(|| DummyProcess::default())
+        INSTANCE.get_or_init(DummyProcess::default)
     }
 }
 

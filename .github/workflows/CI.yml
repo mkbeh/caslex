@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@beta
+      - uses: dtolnay/rust-toolchain@nightly
         with:
           components: clippy, rustfmt
       - uses: Swatinem/rust-cache@v2
@@ -23,7 +23,7 @@ jobs:
       - name: Check
         run: cargo clippy --workspace --all-targets --all-features -- -D warnings
       - name: rustfmt
-        run: cargo fmt --all --check
+        run: cargo +nightly fmt --all --check
 
   check-docs:
     runs-on: ubuntu-24.04
@@ -41,3 +41,20 @@ jobs:
         run: cargo doc --package caslex-extra --all-features --no-deps
     env:
       RUSTDOCFLAGS: "-D rustdoc::all -A rustdoc::private-doc-tests"
+
+  cargo-hack:
+    runs-on: ubuntu-24.04
+    env:
+      # Fail the build if there are any warnings
+      RUSTFLAGS: "-D warnings"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Install cargo-hack
+        run: |
+          curl -LsSf https://github.com/taiki-e/cargo-hack/releases/latest/download/cargo-hack-x86_64-unknown-linux-gnu.tar.gz | tar xzf - -C ~/.cargo/bin
+      - name: cargo hack check
+        run: cargo hack check --each-feature --no-dev-deps --all

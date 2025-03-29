@@ -4,6 +4,8 @@
 //! LOG_LEVEL=trace TRACE_LOG_LEVEL=trace JWT_SECRET=super-secret-key cargo run -p example-http-jwt-auth
 //! ```
 
+#![allow(clippy::exit)]
+
 use std::env;
 
 use axum::Json;
@@ -23,7 +25,7 @@ static SERVICE_NAME: &str = env!("CARGO_PKG_NAME");
 
 #[tokio::main]
 async fn main() {
-    setup_opentelemetry(SERVICE_NAME.to_string());
+    setup_opentelemetry(SERVICE_NAME.to_owned());
 
     let config = Config::parse();
     let router = OpenApiRouter::new()
@@ -32,12 +34,12 @@ async fn main() {
 
     let result = Server::new(config).router(router).run().await;
 
-    unset_opentelemetry(SERVICE_NAME.to_string());
+    unset_opentelemetry(SERVICE_NAME.to_owned());
 
     match result {
         Ok(_) => std::process::exit(0),
         Err(e) => {
-            println!("failed to start server: {}", e);
+            println!("failed to start server: {e}");
             std::process::exit(1);
         }
     }
