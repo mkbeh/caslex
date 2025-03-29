@@ -1,0 +1,18 @@
+[package]
+name = "example-postgres-pool"
+version = "0.1.0"
+edition = "2024"
+publish = false
+rust-version.workspace = true
+
+[dependencies]
+caslex-http = { path = "../../caslex-http" }
+caslex-extra = { path = "../../caslex-extra" , features = ["postgres"]}
+tokio = { version = "1.44.1", features = ["full"] }
+axum = "0.8.3"
+utoipa = "5.3.1"
+utoipa-axum = "0.2.0"
+deadpool-postgres = { version = "0.14.1" }
+
+[lints]
+workspace = true
