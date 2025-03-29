@@ -1,8 +1,10 @@
 [package]
 name = "caslex-http"
 version = "0.1.0"
+categories = ["asynchronous", "network-programming", "web-programming::http-server"]
+description = "Tools for creating web services"
 edition = "2024"
-rust-version = { workspace = true }
+rust-version.workspace = true
 homepage = "https://github.com/mkbeh/caslex"
 license = "MIT"
 keywords = ["caslex"]
@@ -47,7 +49,7 @@ tracing-opentelemetry = { version = "0.30.0" }
 prometheus = { version = "0.14.0", default-features = false }
 
 # optional dependencies
-caslex-extra = {path = "../caslex-extra", features = ["jwt"], optional = true}
+caslex-extra = { path = "../caslex-extra", features = ["jwt"], optional = true }
 jsonwebtoken = { version = "9.3.1", optional = true }
 
 [lints]
