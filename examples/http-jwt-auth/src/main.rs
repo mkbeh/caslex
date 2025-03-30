@@ -9,14 +9,14 @@
 use std::env;
 
 use axum::Json;
-use caslex_extra::{
-    observability::{setup_opentelemetry, unset_opentelemetry},
-    security::jwt,
-};
 use caslex::{
     errors::DefaultError,
     middlewares::auth::Claims,
     server::{Config, Server},
+};
+use caslex_extra::{
+    observability::{setup_opentelemetry, unset_opentelemetry},
+    security::jwt,
 };
 use serde::Serialize;
 use utoipa_axum::{router::OpenApiRouter, routes};
@@ -25,7 +25,7 @@ static SERVICE_NAME: &str = env!("CARGO_PKG_NAME");
 
 #[tokio::main]
 async fn main() {
-    setup_opentelemetry(SERVICE_NAME.to_owned());
+    setup_opentelemetry(SERVICE_NAME);
 
     let config = Config::parse();
     let router = OpenApiRouter::new()
@@ -34,7 +34,7 @@ async fn main() {
 
     let result = Server::new(config).router(router).run().await;
 
-    unset_opentelemetry(SERVICE_NAME.to_owned());
+    unset_opentelemetry(SERVICE_NAME);
 
     match result {
         Ok(_) => std::process::exit(0),

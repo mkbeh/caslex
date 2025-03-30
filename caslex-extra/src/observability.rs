@@ -9,6 +9,8 @@ use opentelemetry_sdk::{
 };
 use tracing_subscriber::{EnvFilter, fmt::format::FmtSpan, prelude::*};
 
+use crate::closer;
+
 const DEFAULT_LOG_LEVEL: &str = "debug";
 
 fn get_resource(name: String) -> Resource {
@@ -54,9 +56,10 @@ fn init_traces(name: String) -> SdkTracerProvider {
         .build()
 }
 
-pub fn setup_opentelemetry(name: String) -> SdkTracerProvider {
+/// TODO docs
+pub fn setup_opentelemetry(name: &'static str) -> SdkTracerProvider {
     global::set_text_map_propagator(TraceContextPropagator::new());
-    let tracer_provider = get_tracer_provider(name.clone());
+    let tracer_provider = get_tracer_provider(name.to_owned());
     // Set the global tracer provider using a clone of the tracer_provider.
     // Setting global tracer provider is required if other parts of the application
     // uses global::tracer() or global::tracer_with_version() to get a tracer.
@@ -67,7 +70,7 @@ pub fn setup_opentelemetry(name: String) -> SdkTracerProvider {
 
     // Create a new opentelemetry layer
     let otel_layer =
-        tracing_opentelemetry::layer().with_tracer(tracer_provider.tracer(name.clone()));
+        tracing_opentelemetry::layer().with_tracer(tracer_provider.tracer(name.to_owned()));
 
     // For the OpenTelemetry layer, add a tracing filter to filter events from
     // OpenTelemetry and its dependent crates (opentelemetry-otlp uses crates
@@ -84,7 +87,7 @@ pub fn setup_opentelemetry(name: String) -> SdkTracerProvider {
 
     let filter_otel = EnvFilter::new(otel_log_level.clone())
         .add_directive(
-            format!("{}={}", name.clone(), otel_log_level)
+            format!("{}={}", name.to_owned(), otel_log_level)
                 .parse()
                 .unwrap(),
         )
@@ -102,7 +105,7 @@ pub fn setup_opentelemetry(name: String) -> SdkTracerProvider {
 
     let filter_fmt = EnvFilter::new(fmt_log_level.clone())
         .add_directive(
-            format!("{}={}", name.clone(), fmt_log_level)
+            format!("{}={}", name.to_owned(), fmt_log_level)
                 .parse()
                 .unwrap(),
         )
@@ -130,11 +133,15 @@ pub fn setup_opentelemetry(name: String) -> SdkTracerProvider {
         .with(fmt_layer)
         .init();
 
+    // Add callback to unset opentelemetry automatically
+    closer::push_callback(Box::new(|| unset_opentelemetry(name)));
+
     tracer_provider
 }
 
-pub fn unset_opentelemetry(name: String) {
-    if let Err(e) = get_tracer_provider(name).shutdown() {
+/// TODO docs
+pub fn unset_opentelemetry(name: &str) {
+    if let Err(e) = get_tracer_provider(name.to_owned()).shutdown() {
         tracing::error!("Failed to shutdown tracer provider: {}", e);
     };
 }

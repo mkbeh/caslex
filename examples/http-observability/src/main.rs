@@ -8,8 +8,8 @@
 
 use std::env;
 
-use caslex_extra::observability::{setup_opentelemetry, unset_opentelemetry};
 use caslex::server::{Config, Server};
+use caslex_extra::observability::{setup_opentelemetry, unset_opentelemetry};
 use utoipa_axum::{router::OpenApiRouter, routes};
 
 static SERVICE_NAME: &str = env!("CARGO_PKG_NAME");
@@ -20,7 +20,7 @@ async fn main() {
     // such as LOG_LEVEL and TRACE_LOG_LEVEL.
 
     // init tracing/logging
-    setup_opentelemetry(SERVICE_NAME.to_owned());
+    setup_opentelemetry(SERVICE_NAME);
 
     let config = Config::parse();
     let router = OpenApiRouter::new().routes(routes!(handler));
@@ -28,7 +28,7 @@ async fn main() {
     let result = Server::new(config).router(router).run().await;
 
     // shutdown tracing/logging
-    unset_opentelemetry(SERVICE_NAME.to_owned());
+    unset_opentelemetry(SERVICE_NAME);
 
     match result {
         Ok(_) => std::process::exit(0),
