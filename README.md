@@ -2,7 +2,9 @@
 
 `caslex` is a set of tools for creating web services.
 
+![GitHub CI](https://github.com/mkbeh/rust-simple-chat/actions/workflows/ci.yml/badge.svg)
 [![Latest Version](https://img.shields.io/crates/v/caslex.svg)](https://crates.io/crates/caslex)
+[![Documentation](https://docs.rs/caslex/badge.svg)](https://docs.rs/caslex)
 
 More information about this crate can be found in the [crate documentation](https://docs.rs/caslex/latest/caslex/).
 

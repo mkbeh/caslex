@@ -1,6 +1,8 @@
-# caslex
+# caslex-extra
 
-[![Latest Version](https://img.shields.io/crates/v/caslex-http.svg)](https://crates.io/crates/caslex-http)
+![GitHub CI](https://github.com/mkbeh/rust-simple-chat/actions/workflows/ci.yml/badge.svg)
+[![Latest Version](https://img.shields.io/crates/v/caslex-extra.svg)](https://crates.io/crates/caslex-extra)
+[![Documentation](https://docs.rs/caslex-extra/badge.svg)](https://docs.rs/caslex-extra)
 
 Extra tools for creating web services.
 
