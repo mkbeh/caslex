@@ -9,8 +9,8 @@
 use std::{env, sync::OnceLock};
 
 use async_trait::async_trait;
-use caslex::{cleanup_resources, setup_application};
-use caslex_http::server::{Config, Process, Server};
+use caslex_extra::{cleanup_resources, setup_application};
+use caslex::server::{Config, Process, Server};
 use tokio_util::sync::CancellationToken;
 
 static SERVICE_NAME: &str = env!("CARGO_PKG_NAME");

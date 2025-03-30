@@ -1,3 +1,5 @@
+//! My docs
+
 mod metrics;
 
 #[cfg(feature = "auth")]

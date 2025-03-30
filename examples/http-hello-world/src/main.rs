@@ -6,7 +6,7 @@
 
 #![allow(clippy::exit)]
 
-use caslex_http::server::{Config, Server};
+use caslex::server::{Config, Server};
 use utoipa_axum::{router::OpenApiRouter, routes};
 
 #[tokio::main]

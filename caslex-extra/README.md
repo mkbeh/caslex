@@ -1,8 +1,8 @@
-# caslex-http
+# caslex
 
 [![Latest Version](https://img.shields.io/crates/v/caslex-http.svg)](https://crates.io/crates/caslex-http)
 
-HTTP tools for creating webserver.
+Extra tools for creating web services.
 
 ## Safety
 

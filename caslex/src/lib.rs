@@ -1,17 +1,18 @@
-pub mod closer;
-pub mod hooks;
-pub mod observability;
-pub mod security;
-pub mod storages;
+//! caslex is a set of tools for creating web services.
+//!
+//! ## High level features
+//! * HTTP web server
+//! * HTTP middlewares (auth, metrics, trace)
+//! * Builtin OpenAPI visualizer
+//! * Errors handling
+//! * JWT
+//! * Postgres Pool
+//! * Observability
+//! * Extra utils
 
-pub use closer::cleanup_resources;
+mod extractors;
+mod swagger;
 
-pub fn setup_application(name: &'static str) {
-    hooks::setup_panic_hook();
-
-    // Setup logs/tracing
-    observability::setup_opentelemetry(name.to_string());
-    closer::push_callback(Box::new(|| {
-        observability::unset_opentelemetry(name.to_owned())
-    }));
-}
+pub mod errors;
+pub mod middlewares;
+pub mod server;

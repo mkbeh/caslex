@@ -9,8 +9,8 @@
 use std::env;
 
 use axum::{extract::State, http::StatusCode};
-use caslex::{cleanup_resources, setup_application, storages::postgres_pool};
-use caslex_http::server::{Config, Server};
+use caslex_extra::{cleanup_resources, setup_application, storages::postgres_pool};
+use caslex::server::{Config, Server};
 use utoipa_axum::{router::OpenApiRouter, routes};
 
 static SERVICE_NAME: &str = env!("CARGO_PKG_NAME");

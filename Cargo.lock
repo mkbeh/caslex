@@ -284,26 +284,7 @@ checksum = "d71b6127be86fdcfddb610f7182ac57211d4b18a3e9c82eb2d17662f2227ad6a"
 
 [[package]]
 name = "caslex"
-version = "0.1.2"
-dependencies = [
- "anyhow",
- "clap",
- "deadpool-postgres",
- "humantime",
- "jsonwebtoken",
- "opentelemetry",
- "opentelemetry-otlp",
- "opentelemetry_sdk",
- "serde",
- "tokio-postgres",
- "tracing",
- "tracing-opentelemetry",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "caslex-http"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -311,7 +292,7 @@ dependencies = [
  "axum-core",
  "axum-extra",
  "bytes",
- "caslex",
+ "caslex-extra",
  "clap",
  "http",
  "http-body-util",
@@ -331,6 +312,25 @@ dependencies = [
  "utoipa-axum",
  "utoipa-scalar",
  "validator",
+]
+
+[[package]]
+name = "caslex-extra"
+version = "0.2.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "deadpool-postgres",
+ "humantime",
+ "jsonwebtoken",
+ "opentelemetry",
+ "opentelemetry-otlp",
+ "opentelemetry_sdk",
+ "serde",
+ "tokio-postgres",
+ "tracing",
+ "tracing-opentelemetry",
+ "tracing-subscriber",
 ]
 
 [[package]]
@@ -558,7 +558,7 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "caslex",
- "caslex-http",
+ "caslex-extra",
  "tokio",
  "utoipa",
  "utoipa-axum",
@@ -569,7 +569,7 @@ name = "example-http-hello-world"
 version = "0.1.0"
 dependencies = [
  "axum",
- "caslex-http",
+ "caslex",
  "tokio",
  "utoipa",
  "utoipa-axum",
@@ -581,7 +581,7 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "caslex",
- "caslex-http",
+ "caslex-extra",
  "serde",
  "tokio",
  "utoipa",
@@ -594,7 +594,7 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "caslex",
- "caslex-http",
+ "caslex-extra",
  "tokio",
  "utoipa",
  "utoipa-axum",
@@ -607,7 +607,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "caslex",
- "caslex-http",
+ "caslex-extra",
  "tokio",
  "tokio-util",
 ]
@@ -618,7 +618,7 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "caslex",
- "caslex-http",
+ "caslex-extra",
  "deadpool-postgres",
  "tokio",
  "utoipa",
@@ -631,7 +631,7 @@ version = "0.1.0"
 dependencies = [
  "axum",
  "caslex",
- "caslex-http",
+ "caslex-extra",
  "tokio",
  "utoipa",
  "utoipa-axum",
@@ -1942,9 +1942,9 @@ checksum = "7fcf8323ef1faaee30a44a340193b1ac6814fd9b7b4e88e9d4519a3e4abe1cfd"
 
 [[package]]
 name = "socket2"
-version = "0.5.8"
+version = "0.5.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c970269d99b64e60ec3bd6ad27270092a5394c4e309314b18ae3fe575695fbe8"
+checksum = "4f5fd57c80058a56cf5c777ab8a126398ece8e442983605d280a44ce79d0edef"
 dependencies = [
  "libc",
  "windows-sys 0.52.0",

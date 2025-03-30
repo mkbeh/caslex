@@ -20,7 +20,7 @@ More information about this crate can be found in the [crate documentation](http
 ## Usage example
 
 ```rust
-use caslex_http::server::{Config, Server};
+use caslex::server::{Config, Server};
 use utoipa_axum::{router::OpenApiRouter, routes};
 
 #[utoipa::path(
