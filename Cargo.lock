@@ -284,7 +284,7 @@ checksum = "d71b6127be86fdcfddb610f7182ac57211d4b18a3e9c82eb2d17662f2227ad6a"
 
 [[package]]
 name = "caslex"
-version = "0.2.0"
+version = "0.2.1"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -316,7 +316,7 @@ dependencies = [
 
 [[package]]
 name = "caslex-extra"
-version = "0.2.2"
+version = "0.2.3"
 dependencies = [
  "anyhow",
  "clap",
@@ -556,12 +556,15 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 name = "example-http-error-handling"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "axum",
  "caslex",
  "caslex-extra",
+ "serde",
  "tokio",
  "utoipa",
  "utoipa-axum",
+ "validator",
 ]
 
 [[package]]

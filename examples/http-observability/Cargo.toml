@@ -3,13 +3,12 @@ name = "example-http-observability"
 version = "0.1.0"
 edition = "2024"
 publish = false
-rust-version.workspace = true
 
 [dependencies]
-caslex = { path = "../../caslex" }
-caslex-extra = {path = "../../caslex-extra", features = ["observability"]}
-tokio = { version = "1.44.1", features = ["full"] }
 axum = "0.8.3"
+caslex = { path = "../../caslex" }
+caslex-extra = { path = "../../caslex-extra", features = ["observability"] }
+tokio = { version = "1.44.1", features = ["full"] }
 utoipa = "5.3.1"
 utoipa-axum = "0.2.0"
 

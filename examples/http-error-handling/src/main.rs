@@ -8,13 +8,17 @@
 
 use std::{env, error::Error as StdError, fmt, fmt::Display};
 
+use anyhow::anyhow;
 use axum::http::StatusCode;
 use caslex::{
-    errors::{AppError, DefaultError},
+    errors::{AppError, AppJson, DefaultError},
     server::{Config, Server},
 };
 use caslex_extra::observability::{setup_opentelemetry, unset_opentelemetry};
+use serde::Deserialize;
+use utoipa::ToSchema;
 use utoipa_axum::{router::OpenApiRouter, routes};
+use validator::Validate;
 
 static SERVICE_NAME: &str = env!("CARGO_PKG_NAME");
 
@@ -24,8 +28,9 @@ async fn main() {
 
     let config = Config::parse();
     let router = OpenApiRouter::new()
-        .routes(routes!(error_handler_one))
-        .routes(routes!(error_handler_two));
+        .routes(routes!(custom_error_handler))
+        .routes(routes!(validation_error_handler))
+        .routes(routes!(other_error_handler));
 
     let result = Server::new(config).router(router).run().await;
 
@@ -41,31 +46,53 @@ async fn main() {
 }
 
 #[utoipa::path(
-    get,
-    path = "/one",
+    post,
+    path = "/validation",
+    request_body = BodyError,
     responses(
-        (status = 400, description = "returns custom error one")
+        (status = 400, description = "returns validation error")
     )
 )]
-async fn error_handler_one() -> Result<&'static str, DefaultError> {
-    Err(DefaultError::AppError(&CustomError::TestErrorOne))
+async fn validation_error_handler(
+    AppJson(payload): AppJson<BodyError>,
+) -> Result<&'static str, DefaultError> {
+    match payload.validate() {
+        Ok(_) => Ok("nothing"),
+        Err(err) => Err(DefaultError::ValidationError(err)),
+    }
+}
+
+#[derive(Debug, Deserialize, Validate, ToSchema)]
+struct BodyError {
+    #[validate(length(min = 1, max = 300))]
+    message: String,
+}
+
+#[utoipa::path(
+    post,
+    path = "/other",
+    responses(
+        (status = 400, description = "returns validation error")
+    )
+)]
+async fn other_error_handler() -> Result<&'static str, DefaultError> {
+    Err(DefaultError::Other(anyhow!("other error")))
 }
 
 #[utoipa::path(
     get,
-    path = "/two",
+    path = "/custom",
     responses(
-        (status = 500, description = "returns custom error two")
+        (status = 400, description = "returns custom error")
     )
 )]
-async fn error_handler_two() -> Result<&'static str, DefaultError> {
-    Err(DefaultError::AppError(&CustomError::TestErrorTwo))
+async fn custom_error_handler() -> Result<&'static str, DefaultError> {
+    Err(DefaultError::AppError(&CustomError::TestErrorOne))
 }
 
 #[derive(Debug)]
 enum CustomError {
     TestErrorOne,
-    TestErrorTwo,
 }
 
 impl StdError for CustomError {}
@@ -86,21 +113,18 @@ impl AppError for CustomError {
     fn status(&self) -> StatusCode {
         match self {
             CustomError::TestErrorOne => StatusCode::BAD_REQUEST,
-            CustomError::TestErrorTwo => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
 
     fn details(&self) -> String {
         match self {
             CustomError::TestErrorOne => "test error one".to_owned(),
-            CustomError::TestErrorTwo => "test error two".to_owned(),
         }
     }
 
     fn kind(&self) -> String {
         match self {
             CustomError::TestErrorOne => "test_error_one".to_owned(),
-            CustomError::TestErrorTwo => "test_error_two".to_owned(),
         }
     }
 }

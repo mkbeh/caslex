@@ -3,14 +3,13 @@ name = "example-http-processes"
 version = "0.1.0"
 edition = "2024"
 publish = false
-rust-version.workspace = true
 
 [dependencies]
-caslex = { path = "../../caslex" }
-caslex-extra = {path = "../../caslex-extra", features = ["observability"]}
-tokio = { version = "1.44.1", features = ["full"] }
 anyhow = "1.0.97"
 async-trait = "0.1.88"
+caslex = { path = "../../caslex" }
+caslex-extra = { path = "../../caslex-extra", features = ["observability"] }
+tokio = { version = "1.44.1", features = ["full"] }
 tokio-util = "0.7.14"
 
 [lints]
