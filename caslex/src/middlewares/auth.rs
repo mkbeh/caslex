@@ -1,3 +1,17 @@
+//! Contains auth middleware.
+//!
+//! # Example
+//!
+//! Add claims to your handler params
+//!
+//! ```rust,no_run
+//! use caslex::{errors::DefaultError, middlewares::auth::Claims};
+//!
+//! async fn decode_handler(_: Claims) {
+//!     // will be error before enter the body
+//! }
+//! ```
+
 use std::{collections::HashMap, error::Error as StdError, fmt, fmt::Display, sync::LazyLock};
 
 use axum_core::{RequestPartsExt, extract::FromRequestParts};
@@ -25,21 +39,21 @@ where
     type Rejection = DefaultError;
 
     async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self, Self::Rejection> {
-        let derr = DefaultError::AppError;
+        let wrapper = DefaultError::AppError;
 
         let TypedHeader(Authorization(bearer)) = parts
             .extract::<TypedHeader<Authorization<Bearer>>>()
             .await
-            .map_err(|_| derr(&AuthError::InvalidToken))?;
+            .map_err(|_| wrapper(&AuthError::InvalidToken))?;
 
         let token_data = match jwt::decode_token::<Claims>(bearer.token()) {
             Ok(data) => data,
             Err(err) => match err.kind() {
-                ErrorKind::ExpiredSignature => Err(derr(&AuthError::ExpiredSignature))?,
-                ErrorKind::InvalidToken => Err(derr(&AuthError::InvalidToken))?,
-                ErrorKind::InvalidSignature => Err(derr(&AuthError::InvalidSignature))?,
-                ErrorKind::Json(_) => Err(derr(&AuthError::InvalidClaims))?,
-                _ => Err(derr(&AuthError::InvalidToken))?,
+                ErrorKind::ExpiredSignature => Err(wrapper(&AuthError::ExpiredSignature))?,
+                ErrorKind::InvalidToken => Err(wrapper(&AuthError::InvalidToken))?,
+                ErrorKind::InvalidSignature => Err(wrapper(&AuthError::InvalidSignature))?,
+                ErrorKind::Json(_) => Err(wrapper(&AuthError::InvalidClaims))?,
+                _ => Err(wrapper(&AuthError::InvalidToken))?,
             },
         };
 

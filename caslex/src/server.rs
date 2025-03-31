@@ -1,3 +1,5 @@
+//! Contains HTTP server.
+
 use std::{
     any::Any, borrow::Cow, fmt::Display, iter::once, net::SocketAddr, sync::LazyLock,
     time::Duration,
@@ -27,26 +29,32 @@ use utoipa_axum::{router::OpenApiRouter, routes};
 
 use crate::{
     errors::{ErrorInfo, ErrorResponse},
-    middlewares, swagger,
+    metrics, swagger, trace,
 };
 
+/// Define server config.
 #[derive(Parser, Debug, Clone)]
 pub struct Config {
+    /// Server host. Env variable name: `SERVER_HOST`.
     #[arg(long, env = "SERVER_HOST", default_value = "127.0.0.1")]
-    host: String,
+    pub host: String,
+    /// Server port. Env variable name: `SERVER_PORT`.
     #[arg(long, env = "SERVER_PORT", default_value = "9000")]
-    port: String,
+    pub port: String,
+    /// Server metrics port. Env variable name: `SERVER_METRICS_PORT`.
     #[arg(long, env = "SERVER_METRICS_PORT", default_value = "9007")]
-    metrics_port: String,
+    pub metrics_port: String,
+    /// Server request timeout. Env variable name: `SERVER_REQUEST_TIMEOUT`.
     #[arg(long, env = "SERVER_REQUEST_TIMEOUT", default_value = "10s")]
-    request_timeout: humantime::Duration,
+    pub request_timeout: humantime::Duration,
+    /// Server OpenAPI docs path. Env variable name: `SERVER_DOCS_URL`.
     #[arg(long, env = "SERVER_DOCS_URL", default_value = "/docs")]
-    docs_url: String,
+    pub docs_url: String,
 }
 
 impl Config {
     pub fn parse() -> Config {
-        Config::try_parse().unwrap()
+        Config::try_parse().expect("Parsing configuration failed.")
     }
 
     fn get_addr(&self) -> String {
@@ -58,12 +66,14 @@ impl Config {
     }
 }
 
+/// Define background process trait.
 #[async_trait]
 pub trait Process: Send + Sync {
     async fn pre_run(&self) -> anyhow::Result<()>;
     async fn run(&self, token: CancellationToken) -> anyhow::Result<()>;
 }
 
+/// Define HTTP server.
 pub struct Server<'a> {
     addr: String,
     metrics_addr: String,
@@ -111,6 +121,7 @@ impl<'a> Server<'a> {
         }
     }
 
+    /// Pre run and run background processes if passed and start application and metrics server.
     pub async fn run(&self) -> anyhow::Result<()> {
         const PROCESS_PRE_RUN_TIMEOUT: Duration = Duration::from_secs(60);
         static SHUTDOWN_TOKEN: LazyLock<CancellationToken> = LazyLock::new(CancellationToken::new);
@@ -205,7 +216,7 @@ impl<'a> Server<'a> {
             _ => get_default_router(),
         };
 
-        middlewares::with_trace_layer(swagger::get_openapi_router(_router, self.docs_url.clone()))
+        trace::with_trace_layer(swagger::get_openapi_router(_router, self.docs_url.clone()))
             // Fallback 404
             .fallback(fallback_handler)
             // Fallback 405
@@ -213,7 +224,7 @@ impl<'a> Server<'a> {
             // Panic recovery handler
             .layer(CatchPanicLayer::custom(panic_handler))
             // Prometheus metrics tracker
-            .layer(middleware::from_fn(middlewares::metrics_handler))
+            .layer(middleware::from_fn(metrics::metrics_handler))
             // Request timeout
             .layer(TimeoutLayer::new(self.request_timeout))
             // Compress responses
@@ -280,7 +291,7 @@ fn get_default_router() -> OpenApiRouter {
 }
 
 fn get_metrics_router() -> Router {
-    Router::from(get_default_router()).route("/metrics", get(middlewares::prometheus_handler))
+    Router::from(get_default_router()).route("/metrics", get(metrics::prometheus_handler))
 }
 
 /// readiness

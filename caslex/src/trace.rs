@@ -1,3 +1,5 @@
+//! Contains trace layer for HTTP server.
+
 use std::{fmt::Display, time::Duration};
 
 use axum::{Router, body::HttpBody, extract::MatchedPath};
@@ -8,6 +10,7 @@ use tracing_opentelemetry::OpenTelemetrySpanExt;
 
 use crate::extractors;
 
+/// Add tracing/logging middleware.
 pub fn with_trace_layer(router: Router) -> Router {
     router.layer(
         TraceLayer::new_for_http()
