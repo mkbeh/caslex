@@ -76,9 +76,7 @@
 //! ) -> Result<&'static str, DefaultError> {
 //!     match payload.validate() {
 //!         Ok(_) => Ok("nothing"),
-//!         Err(err) => {
-//!             Err(DefaultError::ValidationError(err))
-//!         }
+//!         Err(err) => Err(DefaultError::ValidationError(err)),
 //!     }
 //! }
 //! ```
