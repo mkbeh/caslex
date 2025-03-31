@@ -1,10 +1,9 @@
 [package]
 name = "caslex"
-version = "0.2.0"
+version = "0.2.1"
 categories = ["asynchronous", "network-programming", "web-programming::http-server"]
 description = "Tools for creating web services"
 edition = "2024"
-rust-version.workspace = true
 homepage = "https://github.com/mkbeh/caslex"
 license = "MIT"
 keywords = ["caslex"]
@@ -15,23 +14,23 @@ repository = "https://github.com/mkbeh/caslex"
 auth = ["dep:jsonwebtoken", "dep:caslex-extra"]
 
 [dependencies]
-serde = { version = "1.0.219", features = ["derive"] }
-serde_json = { version = "1.0.140" }
-async-trait = { version = "0.1.88" }
 anyhow = { version = "1.0.97", default-features = false }
-humantime = { version = "2.2.0" }
-lazy_static = { version = "1.5.0" }
-bytes = { version = "1.10.1" }
-thiserror = { version = "2.0.12" }
-clap = { version = "4.5.34", features = ["derive", "env"] }
-validator = { version = "0.20.0", features = ["derive"] }
-tokio = { version = "1.44.1", features = ["macros", "rt-multi-thread", "signal"] }
-tokio-util = { version = "0.7.14" }
+async-trait = { version = "0.1.88" }
 axum = { version = "0.8.3", features = ["http1", "http2", "json", "macros"] }
 axum-core = { version = "0.5.2" }
 axum-extra = { version = "0.10.1", features = ["typed-header"] }
+bytes = { version = "1.10.1" }
+clap = { version = "4.5.34", features = ["derive", "env"] }
 http = { version = "1.3.1" }
 http-body-util = { version = "0.1.3" }
+humantime = { version = "2.2.0" }
+lazy_static = { version = "1.5.0" }
+prometheus = { version = "0.14.0", default-features = false }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = { version = "1.0.140" }
+thiserror = { version = "2.0.12" }
+tokio = { version = "1.44.1", features = ["macros", "rt-multi-thread", "signal"] }
+tokio-util = { version = "0.7.14" }
 tower-http = { version = "0.6.2", features = [
     "trace",
     "cors",
@@ -41,15 +40,15 @@ tower-http = { version = "0.6.2", features = [
     "sensitive-headers",
     "propagate-header",
 ] }
+tracing = { version = "0.1.41", default-features = false }
+tracing-opentelemetry = { version = "0.30.0" }
 utoipa = { version = "5.3.1", features = ["axum_extras", "chrono"] }
 utoipa-axum = { version = "0.2.0" }
 utoipa-scalar = { version = "0.3.0", features = ["axum"] }
-tracing = { version = "0.1.41", default-features = false }
-tracing-opentelemetry = { version = "0.30.0" }
-prometheus = { version = "0.14.0", default-features = false }
+validator = { version = "0.20.0", features = ["derive"] }
 
 # optional dependencies
-caslex-extra = { path = "../caslex-extra", version = "0.2.0", features = ["jwt"], optional = true }
+caslex-extra = { path = "../caslex-extra", version = "0.2.3", features = ["jwt"], optional = true }
 jsonwebtoken = { version = "9.3.1", optional = true }
 
 [lints]
