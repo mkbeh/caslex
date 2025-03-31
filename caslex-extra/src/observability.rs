@@ -1,3 +1,21 @@
+//! Contains tracing and opentelemetry initializer.
+//!
+//! # Example
+//!
+//! ```rust,no_run
+//! use caslex_extra::observability::{setup_opentelemetry, unset_opentelemetry};
+//! use tracing::{Level, span};
+//!
+//! fn main() {
+//!     setup_opentelemetry("my_service_name");
+//!     span!(Level::INFO, "my_span", answer = 42);
+//!     unset_opentelemetry("my_service_name");
+//! }
+//! ```
+//!
+//! Log level of logs and traces configure via `LOG_LEVEL` and `TRACE_LOG_LEVEL` environment
+//! variables.
+
 use std::{env, sync::OnceLock};
 
 use opentelemetry::{KeyValue, global, trace::TracerProvider};
@@ -56,7 +74,9 @@ fn init_traces(name: String) -> SdkTracerProvider {
         .build()
 }
 
-/// TODO docs
+/// Setup opentelemetry.
+/// 
+/// Init opentelemetry tracer provider and tracing.
 pub fn setup_opentelemetry(name: &'static str) -> SdkTracerProvider {
     global::set_text_map_propagator(TraceContextPropagator::new());
     let tracer_provider = get_tracer_provider(name.to_owned());
@@ -139,7 +159,7 @@ pub fn setup_opentelemetry(name: &'static str) -> SdkTracerProvider {
     tracer_provider
 }
 
-/// TODO docs
+/// Close tracer provider.
 pub fn unset_opentelemetry(name: &str) {
     if let Err(e) = get_tracer_provider(name.to_owned()).shutdown() {
         tracing::error!("Failed to shutdown tracer provider: {}", e);

@@ -1,3 +1,19 @@
+//! Contains postgres pool builder.
+//!
+//! # Example
+//!
+//! ```rust,no_run
+//! use caslex_extra::storages::postgres_pool::{Config, build_pool_from_config};
+//!
+//! async fn main() {
+//!     // Parse config environment variables
+//!     let config = Config::parse();
+//!
+//!     // Initialize pool from above config
+//!     let pool = build_pool_from_config(config).await.unwrap();
+//! }
+//! ```
+
 use std::time::Duration;
 
 use anyhow::anyhow;
@@ -6,6 +22,7 @@ use deadpool_postgres;
 use humantime;
 
 #[derive(Parser, Debug, Clone)]
+/// Define pool config.
 pub struct Config {
     #[arg(long, env = "POSTGRES_HOST", default_value = "127.0.0.1")]
     /// Adds a host to the configuration.
@@ -59,6 +76,7 @@ impl Config {
     }
 }
 
+/// Build pool from config.
 pub async fn build_pool_from_config(config: Config) -> anyhow::Result<deadpool_postgres::Pool> {
     let mut conn_opts = deadpool_postgres::Config::new();
     conn_opts.application_name = Some(env!("CARGO_PKG_NAME").to_string());

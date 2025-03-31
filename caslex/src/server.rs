@@ -73,7 +73,6 @@ pub struct Server<'a> {
     processes: Option<&'a Vec<&'static dyn Process>>,
 }
 
-#[macro_export]
 macro_rules! server_method {
     ($name:ident, $ty:ty) => {
         pub fn $name(mut self, $name: $ty) -> Self {

@@ -61,7 +61,7 @@ This crate uses `#![forbid(unsafe_code)]` to ensure everything is implemented in
 
 ## Examples
 
-The [examples](https://github.com/mkbeh/caslex/tree/main/examples) folder contains various examples of how to use axum. The [docs](https://docs.rs/caslex/latest/caslex/) also provide lots of code snippets and examples.
+The [examples](https://github.com/mkbeh/caslex/tree/main/examples) folder contains various examples of how to use caslex. The [docs](https://docs.rs/caslex/latest/caslex/) also provide lots of code snippets and examples.
 
 ## Projects
 

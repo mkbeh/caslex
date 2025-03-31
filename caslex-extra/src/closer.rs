@@ -1,11 +1,25 @@
+//! Contains auto closer.
+//!
+//! Example
+//!
+//! ```rust,no_run
+//! use caslex_extra::closer;
+//!
+//! fn main() {
+//!     closer::push_callback(Box::new(|| println!("close me")));
+//!
+//!     closer::cleanup_resources();
+//! }
 use std::sync::{LazyLock, Mutex};
 
 static CLOSER: LazyLock<Mutex<Closer>> = LazyLock::new(|| Mutex::new(Closer::default()));
 
+/// Add callback to global closer array.
 pub fn push_callback(callback: CloserFunc<'static>) {
     CLOSER.lock().unwrap().push(callback);
 }
 
+/// Execute all added callbacks to global closer array.
 pub fn cleanup_resources() {
     CLOSER.lock().unwrap().close()
 }

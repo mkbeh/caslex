@@ -1,4 +1,4 @@
-//! My docs
+//! Contains HTTP middlewares.
 
 mod metrics;
 
