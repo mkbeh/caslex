@@ -7,10 +7,8 @@
 //! ```rust,no_run
 //! use caslex_extra::hooks::setup_panic_hook;
 //!
-//! fn main() {
-//!     setup_panic_hook();
-//!     panic!("test")
-//! }
+//! setup_panic_hook();
+//! panic!("test")
 //! ```
 
 /// Setup custom panic hook.

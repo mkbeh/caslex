@@ -5,11 +5,10 @@
 //! ```rust,no_run
 //! use caslex_extra::closer;
 //!
-//! fn main() {
-//!     closer::push_callback(Box::new(|| println!("close me")));
+//! closer::push_callback(Box::new(|| println!("close me")));
 //!
-//!     closer::cleanup_resources();
-//! }
+//! closer::cleanup_resources();
+//! ````
 use std::sync::{LazyLock, Mutex};
 
 static CLOSER: LazyLock<Mutex<Closer>> = LazyLock::new(|| Mutex::new(Closer::default()));

@@ -6,11 +6,11 @@
 //! use caslex_extra::observability::{setup_opentelemetry, unset_opentelemetry};
 //! use tracing::{Level, span};
 //!
-//! fn main() {
-//!     setup_opentelemetry("my_service_name");
-//!     span!(Level::INFO, "my_span", answer = 42);
-//!     unset_opentelemetry("my_service_name");
-//! }
+//! setup_opentelemetry("my_service_name");
+//!
+//! span!(Level::INFO, "my_span", answer = 42);
+//!
+//! unset_opentelemetry("my_service_name");
 //! ```
 //!
 //! Log level of logs and traces configure via `LOG_LEVEL` and `TRACE_LOG_LEVEL` environment
@@ -75,7 +75,7 @@ fn init_traces(name: String) -> SdkTracerProvider {
 }
 
 /// Setup opentelemetry.
-/// 
+///
 /// Init opentelemetry tracer provider and tracing.
 pub fn setup_opentelemetry(name: &'static str) -> SdkTracerProvider {
     global::set_text_map_propagator(TraceContextPropagator::new());

@@ -5,13 +5,11 @@
 //! ```rust,no_run
 //! use caslex_extra::storages::postgres_pool::{Config, build_pool_from_config};
 //!
-//! async fn main() {
-//!     // Parse config environment variables
-//!     let config = Config::parse();
+//! // Parse config environment variables
+//! let config = Config::parse();
 //!
-//!     // Initialize pool from above config
-//!     let pool = build_pool_from_config(config).await.unwrap();
-//! }
+//! // Initialize pool from above config
+//! let pool = build_pool_from_config(config);
 //! ```
 
 use std::time::Duration;

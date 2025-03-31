@@ -4,7 +4,7 @@
 //!
 //! ```rust,no_run
 //! use caslex_extra::security::jwt::{decode_token, encode_token, expiry};
-//! use serde::{Serialize, Deserialize};
+//! use serde::{Deserialize, Serialize};
 //!
 //! #[derive(Serialize, Deserialize)]
 //! struct Claims {
@@ -12,20 +12,18 @@
 //!     exp: u64,
 //! }
 //!
-//! fn main() {
-//!     // generate expiry 60 seconds
-//!     let exp = expiry(60);
+//! // generate expiry 60 seconds
+//! let exp = expiry(60);
 //!
-//!     let claims = Claims {
-//!         sub: "123".to_owned(),
-//!         exp,
-//!     };
-//! 
-//!     let encoded_token = encode_token(&claims).unwrap();
-//!     let decoded_token = decode_token::<Claims>(&encoded_token).unwrap();
-//! 
-//!     assert_eq!(decoded_token.claims.sub, claims.sub);
-//! }
+//! let claims = Claims {
+//!     sub: "123".to_owned(),
+//!     exp,
+//! };
+//!
+//! let encoded_token = encode_token(&claims).unwrap();
+//! let decoded_token = decode_token::<Claims>(&encoded_token).unwrap();
+//!
+//! assert_eq!(decoded_token.claims.sub, claims.sub);
 //! ```
 //!
 //! JWT secret key configure via environment variable `JWT_SECRET`.
