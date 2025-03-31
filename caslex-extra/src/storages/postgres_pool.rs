@@ -22,44 +22,44 @@ use humantime;
 #[derive(Parser, Debug, Clone)]
 /// Define pool config.
 pub struct Config {
-    #[arg(long, env = "POSTGRES_HOST", default_value = "127.0.0.1")]
     /// Adds a host to the configuration. Env variable name: `POSTGRES_HOST`.
+    #[arg(long, env = "POSTGRES_HOST", default_value = "127.0.0.1")]
     pub host: String,
-    #[arg(long, env = "POSTGRES_PORT", default_value = "5432")]
     /// Adds a port to the configuration. Env variable name: `POSTGRES_PORT`.
+    #[arg(long, env = "POSTGRES_PORT", default_value = "5432")]
     pub port: u16,
-    #[arg(long, env = "POSTGRES_USER", required = true)]
     /// Sets the user to authenticate with. Env variable name: `POSTGRES_USER`.
+    #[arg(long, env = "POSTGRES_USER", required = true)]
     pub user: String,
-    #[arg(long, env = "POSTGRES_PASSWORD", required = true)]
     /// Sets the password to authenticate with. Env variable name: `POSTGRES_PASSWORD`.
+    #[arg(long, env = "POSTGRES_PASSWORD", required = true)]
     pub password: String,
-    #[arg(long, env = "POSTGRES_DB", required = true)]
     /// Sets the name of the database to connect to. Env variable name: `POSTGRES_DB`.
+    #[arg(long, env = "POSTGRES_DB", required = true)]
     pub db: String,
-    #[arg(long, env = "POSTGRES_CONNECT_TIMEOUT", default_value = "5s")]
     /// Sets the timeout applied to socket-level connection attempts. Env variable name:
     /// `POSTGRES_CONNECT_TIMEOUT`.
+    #[arg(long, env = "POSTGRES_CONNECT_TIMEOUT", default_value = "5s")]
     pub connect_timeout: humantime::Duration,
-    #[arg(long, env = "POSTGRES_KEEPALIVES", default_value = "true")]
     /// Controls the use of TCP keepalive. Env variable name: `POSTGRES_KEEPALIVES`.
+    #[arg(long, env = "POSTGRES_KEEPALIVES", default_value = "true")]
     pub keepalives: bool,
-    #[arg(long, env = "POSTGRES_KEEPALIVES_IDLE", default_value = "30s")]
     /// Sets the amount of idle time before a keepalive packet is sent on the connection. Env
     /// variable name: `POSTGRES_KEEPALIVES_IDLE`.
+    #[arg(long, env = "POSTGRES_KEEPALIVES_IDLE", default_value = "30s")]
     pub keepalives_idle: humantime::Duration,
-    #[arg(long, env = "POSTGRES_TARGET_SESSION_ATTRS", default_value = "any")]
     /// Sets the requirements of the session. Env variable name: `POSTGRES_TARGET_SESSION_ATTRS`.
+    #[arg(long, env = "POSTGRES_TARGET_SESSION_ATTRS", default_value = "any")]
     pub target_session_attrs: String,
-    #[arg(long, env = "POSTGRES_MAX_CONNECTIONS", default_value = "15")]
     /// Maximum size of the pool. Env variable name: `POSTGRES_MAX_CONNECTIONS`.
+    #[arg(long, env = "POSTGRES_MAX_CONNECTIONS", default_value = "15")]
     pub max_connections: usize,
-    #[arg(long, env = "POSTGRES_CREATE_TIMEOUT", default_value = "1m")]
     /// Timeout when creating a new object. Env variable name: `POSTGRES_CREATE_TIMEOUT`.
+    #[arg(long, env = "POSTGRES_CREATE_TIMEOUT", default_value = "1m")]
     pub create_timeout: humantime::Duration,
-    #[arg(long, env = "POSTGRES_WAIT_TIMEOUT", default_value = "30s")]
     /// Timeout when waiting for a slot to become available. Env variable name:
     /// `POSTGRES_WAIT_TIMEOUT`.
+    #[arg(long, env = "POSTGRES_WAIT_TIMEOUT", default_value = "30s")]
     pub wait_timeout: humantime::Duration,
 }
 
