@@ -1,7 +1,7 @@
 //! Run with
 //!
 //! ```not_rust
-//! LOG_LEVEL=trace TRACE_LOG_LEVEL=trace JWT_SECRET=super-secret-key cargo run -p example-http-jwt-auth
+//! LOG_LEVEL=trace OTEL_LOG_LEVEL=trace JWT_SECRET=super-secret-key cargo run -p example-http-jwt-auth
 //! ```
 
 #![allow(clippy::exit)]

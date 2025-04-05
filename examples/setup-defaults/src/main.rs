@@ -1,7 +1,7 @@
 //! Run with
 //!
 //! ```not_rust
-//! LOG_LEVEL=trace TRACE_LOG_LEVEL=trace cargo run -p example-setup-defaults
+//! LOG_LEVEL=trace OTEL_LOG_LEVEL=trace cargo run -p example-setup-defaults
 //! ```
 
 #![allow(clippy::exit)]

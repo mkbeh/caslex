@@ -1,7 +1,7 @@
 //! Run with
 //!
 //! ```not_rust
-//! LOG_LEVEL=trace TRACE_LOG_LEVEL=trace cargo run -p example-observability
+//! LOG_LEVEL=trace OTEL_LOG_LEVEL=trace cargo run -p example-observability
 //! ```
 
 #![allow(clippy::exit)]
@@ -17,7 +17,7 @@ static SERVICE_NAME: &str = env!("CARGO_PKG_NAME");
 #[tokio::main]
 async fn main() {
     // Logs and tracing visibility configure via env variables
-    // such as LOG_LEVEL and TRACE_LOG_LEVEL.
+    // such as LOG_LEVEL and OTEL_LOG_LEVEL.
 
     // init tracing/logging
     setup_opentelemetry(SERVICE_NAME);
