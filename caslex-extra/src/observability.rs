@@ -13,7 +13,7 @@
 //! unset_opentelemetry("my_service_name");
 //! ```
 //!
-//! Log level of logs and traces configure via `LOG_LEVEL` and `TRACE_LOG_LEVEL` environment
+//! Log level of logs and traces configure via `LOG_LEVEL` and `OTEL_LOG_LEVEL` environment
 //! variables.
 
 use std::{env, sync::OnceLock};
