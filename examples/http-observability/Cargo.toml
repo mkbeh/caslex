@@ -8,7 +8,7 @@ publish = false
 axum = "0.8.3"
 caslex = { path = "../../caslex" }
 caslex-extra = { path = "../../caslex-extra", features = ["observability"] }
-tokio = { version = "1.44.1", features = ["full"] }
+tokio = { version = "1.44.2", features = ["full"] }
 utoipa = "5.3.1"
 utoipa-axum = "0.2.0"
 
