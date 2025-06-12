@@ -114,12 +114,6 @@ pub trait AppError: StdError {
 }
 
 /// Define default custom API error.
-///
-/// **Catch errors:**
-/// * json rejection
-/// * struct validation
-/// * application (custom)
-/// * `anyhow`
 #[derive(Error, Debug)]
 pub enum DefaultError {
     #[error(transparent)]
