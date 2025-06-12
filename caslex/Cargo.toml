@@ -1,6 +1,6 @@
 [package]
 name = "caslex"
-version = "0.2.4"
+version = "0.2.5"
 categories = ["asynchronous", "network-programming", "web-programming::http-server"]
 description = "Tools for creating web services"
 edition = "2024"
@@ -10,17 +10,23 @@ keywords = ["caslex"]
 readme = "README.md"
 repository = "https://github.com/mkbeh/caslex"
 
+[package.metadata.docs.rs]
+all-features = true
+
+[package.metadata.cargo-public-api-crates]
+allowed = ["caslex", "caslex-extra"]
+
 [features]
 auth = ["dep:jsonwebtoken", "dep:caslex-extra"]
 
 [dependencies]
-anyhow = { version = "1.0.97", default-features = false }
+anyhow = { version = "1.0.98", default-features = false }
 async-trait = { version = "0.1.88" }
-axum = { version = "0.8.3", features = ["http1", "http2", "json", "macros"] }
+axum = { version = "0.8.4", features = ["http1", "http2", "json", "macros"] }
 axum-core = { version = "0.5.2" }
 axum-extra = { version = "0.10.1", features = ["typed-header"] }
 bytes = { version = "1.10.1" }
-clap = { version = "4.5.35", features = ["derive", "env"] }
+clap = { version = "4.5.40", features = ["derive", "env"] }
 http = { version = "1.3.1" }
 http-body-util = { version = "0.1.3" }
 humantime = { version = "2.2.0" }
@@ -29,9 +35,9 @@ prometheus = { version = "0.14.0", default-features = false }
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = { version = "1.0.140" }
 thiserror = { version = "2.0.12" }
-tokio = { version = "1.44.2", features = ["macros", "rt-multi-thread", "signal"] }
-tokio-util = { version = "0.7.14" }
-tower-http = { version = "0.6.2", features = [
+tokio = { version = "1.45.1", features = ["macros", "rt-multi-thread", "signal"] }
+tokio-util = { version = "0.7.15" }
+tower-http = { version = "0.6.6", features = [
     "trace",
     "cors",
     "catch-panic",
@@ -41,7 +47,7 @@ tower-http = { version = "0.6.2", features = [
     "propagate-header",
 ] }
 tracing = { version = "0.1.41", default-features = false }
-tracing-opentelemetry = { version = "0.30.0" }
+tracing-opentelemetry = { version = "0.31.0" }
 utoipa = { version = "5.3.1", features = ["axum_extras", "chrono"] }
 utoipa-axum = { version = "0.2.0" }
 utoipa-scalar = { version = "0.3.0", features = ["axum"] }
@@ -53,14 +59,4 @@ jsonwebtoken = { version = "9.3.1", optional = true }
 
 [lints]
 workspace = true
-
-[package.metadata.docs.rs]
-all-features = true
-
-[package.metadata.cargo-public-api-crates]
-allowed = [
-    # our crates
-    "caslex",
-    "caslex-extra"
-]
 
