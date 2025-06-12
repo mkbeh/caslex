@@ -107,7 +107,7 @@ pub fn setup_opentelemetry(name: &'static str) -> SdkTracerProvider {
 
     let filter_otel = EnvFilter::new(otel_log_level.clone())
         .add_directive(
-            format!("{}={}", name.to_owned(), otel_log_level)
+            format!("{}={otel_log_level}", name.to_owned())
                 .parse()
                 .unwrap(),
         )
@@ -125,7 +125,7 @@ pub fn setup_opentelemetry(name: &'static str) -> SdkTracerProvider {
 
     let filter_fmt = EnvFilter::new(fmt_log_level.clone())
         .add_directive(
-            format!("{}={}", name.to_owned(), fmt_log_level)
+            format!("{}={fmt_log_level}", name.to_owned())
                 .parse()
                 .unwrap(),
         )
