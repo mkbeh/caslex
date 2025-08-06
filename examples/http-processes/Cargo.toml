@@ -9,8 +9,8 @@ anyhow = "1.0.98"
 async-trait = "0.1.88"
 caslex = { path = "../../caslex" }
 caslex-extra = { path = "../../caslex-extra", features = ["observability"] }
-tokio = { version = "1.45.1", features = ["full"] }
-tokio-util = "0.7.15"
+tokio = { version = "1.47.1", features = ["full"] }
+tokio-util = "0.7.16"
 
 [lints]
 workspace = true
