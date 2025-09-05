@@ -54,7 +54,7 @@ utoipa-scalar = { version = "0.3.0", features = ["axum"] }
 validator = { version = "0.20.0", features = ["derive"] }
 
 # optional dependencies
-caslex-extra = { path = "../caslex-extra", version = "0.2.4", features = ["jwt"], optional = true }
+caslex-extra = { path = "../caslex-extra", version = "0.2.7", features = ["jwt"], optional = true }
 jsonwebtoken = { version = "9.3.1", optional = true }
 
 [lints]
