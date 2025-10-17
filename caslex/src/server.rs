@@ -156,7 +156,7 @@ impl<'a> Server<'a> {
 
             for task in tasks {
                 if let Err(e) = task.await? {
-                    return Err(anyhow!("error while pre run process: {}", e));
+                    return Err(anyhow!("error while pre run process: {e}"));
                 }
             }
         }
@@ -173,7 +173,7 @@ impl<'a> Server<'a> {
                 .collect();
 
             tokio::try_join!(app_server, metrics_server)
-                .map_err(|e| anyhow!("Failed to bootstrap server. Reason: {:?}", e))?;
+                .map_err(|e| anyhow!("Failed to bootstrap server. Reason: {e:?}"))?;
 
             SHUTDOWN_TOKEN.cancel();
 

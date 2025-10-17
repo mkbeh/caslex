@@ -26,7 +26,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::errors::{AppError, DefaultError};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Claims {
     pub sub: String,
     pub exp: u64,
