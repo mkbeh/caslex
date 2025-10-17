@@ -5,12 +5,12 @@ edition = "2024"
 publish = false
 
 [dependencies]
-anyhow = "1.0.99"
-axum = "0.8.4"
+anyhow = "1.0.100"
+axum = "0.8.6"
 caslex = { path = "../../caslex" }
 caslex-extra = { path = "../../caslex-extra", features = ["observability"] }
-serde = { version = "1.0.219", features = ["derive"] }
-tokio = { version = "1.47.1", features = ["full"] }
+serde = { version = "1.0.228", features = ["derive"] }
+tokio = { version = "1.48.0", features = ["full"] }
 utoipa = "5.4.0"
 utoipa-axum = "0.2.0"
 validator = { version = "0.20.0", features = ["derive"] }

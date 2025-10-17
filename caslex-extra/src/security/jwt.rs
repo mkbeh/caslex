@@ -6,7 +6,7 @@
 //! use caslex_extra::security::jwt::{decode_token, encode_token, expiry};
 //! use serde::{Deserialize, Serialize};
 //!
-//! #[derive(Serialize, Deserialize)]
+//! #[derive(Clone, Serialize, Deserialize)]
 //! struct Claims {
 //!     sub: String,
 //!     exp: u64,
@@ -67,6 +67,6 @@ pub fn encode_token<T: Serialize>(claims: &T) -> Result<String, Error> {
 }
 
 /// Decode token.
-pub fn decode_token<T: DeserializeOwned>(token: &str) -> Result<TokenData<T>, Error> {
+pub fn decode_token<T: DeserializeOwned + Clone>(token: &str) -> Result<TokenData<T>, Error> {
     decode::<T>(token, &KEYS.decoding, &Validation::default())
 }
